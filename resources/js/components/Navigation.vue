@@ -43,28 +43,28 @@
                   </ul>
 
                   <ul class="navbar-nav ml-auto" v-if="user.authenticated">
-                      <li class="nav-item dropdown">
-                          <a
-                              id="navbarDropdown"
-                              class="nav-link dropdown-toggle"
-                              role="button"
-                              data-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                          >
-                              {{ user.data.name }}
-                              <span class="caret"></span>
-                          </a>
+                        <li class="nav-item">
+                        <router-link :to="{ name: 'timeline' }" class="nav-link">Timeline</router-link>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <a
+                            id="navbarDropdown"
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Hakim
+                            <span class="caret"></span>
+                        </a>
 
-                          <div
-                              class="dropdown-menu dropdown-menu-right"
-                              aria-labelledby="navbarDropdown"
-                          >
-                              <router-link :to="{ name: 'profile' }">Profile</router-link>
-                              <a class="dropdown-item" href="#" @click.prevent="signout">Logout</a>
-                          </div>
-                      </li>
-                  </ul>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" @click.prevent="signout">Logout</a>
+                        </div>
+                        </li>
+                    </ul>
               </div>
           </div>
       </nav>

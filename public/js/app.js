@@ -2088,30 +2088,22 @@ var render = function render() {
   }, [_vm._v("Register")])], 1)]) : _vm._e(), _vm._v(" "), _vm.user.authenticated ? _c("ul", {
     staticClass: "navbar-nav ml-auto"
   }, [_c("li", {
-    staticClass: "nav-item dropdown"
-  }, [_c("a", {
-    staticClass: "nav-link dropdown-toggle",
+    staticClass: "nav-item"
+  }, [_c("router-link", {
+    staticClass: "nav-link",
     attrs: {
-      id: "navbarDropdown",
-      role: "button",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
+      to: {
+        name: "timeline"
+      }
     }
-  }, [_vm._v("\n                            " + _vm._s(_vm.user.data.name) + "\n                            "), _c("span", {
-    staticClass: "caret"
-  })]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Timeline")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "nav-item dropdown"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu dropdown-menu-right",
     attrs: {
       "aria-labelledby": "navbarDropdown"
     }
-  }, [_c("router-link", {
-    attrs: {
-      to: {
-        name: "profile"
-      }
-    }
-  }, [_vm._v("Profile")]), _vm._v(" "), _c("a", {
+  }, [_c("a", {
     staticClass: "dropdown-item",
     attrs: {
       href: "#"
@@ -2122,7 +2114,7 @@ var render = function render() {
         return _vm.signout.apply(null, arguments);
       }
     }
-  }, [_vm._v("Logout")])], 1)])]) : _vm._e()])], 1)])]);
+  }, [_vm._v("Logout")])])])]) : _vm._e()])], 1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2139,6 +2131,22 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", {
     staticClass: "navbar-toggler-icon"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("a", {
+    staticClass: "nav-link dropdown-toggle",
+    attrs: {
+      id: "navbarDropdown",
+      href: "#",
+      role: "button",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                          Hakim\n                          "), _c("span", {
+    staticClass: "caret"
   })]);
 }];
 render._withStripped = true;
@@ -54147,7 +54155,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   user: {
-    authenticated: false,
+    authenticated: true,
     data: null
   }
 });
