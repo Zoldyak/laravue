@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import router from "./router";
-import store from "./store"
+import store from "./store";
 require('./bootstrap');
 
 window.Vue = require('vue');

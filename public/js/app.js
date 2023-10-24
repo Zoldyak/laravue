@@ -54082,14 +54082,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/app/auth/store/getters.js":
+/*!************************************************!*\
+  !*** ./resources/js/app/auth/store/getters.js ***!
+  \************************************************/
+/*! exports provided: user */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
+var user = function user(state) {
+  return state.user;
+};
+
+/***/ }),
+
 /***/ "./resources/js/app/auth/store/index.js":
 /*!**********************************************!*\
   !*** ./resources/js/app/auth/store/index.js ***!
   \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/app/auth/store/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/app/auth/store/mutations.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mutations__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getters */ "./resources/js/app/auth/store/getters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__,
+  actions: _mutations__WEBPACK_IMPORTED_MODULE_1__,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_2__
+});
+
+/***/ }),
+
+/***/ "./resources/js/app/auth/store/mutations.js":
+/*!**************************************************!*\
+  !*** ./resources/js/app/auth/store/mutations.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ "./resources/js/app/auth/store/state.js":
+/*!**********************************************!*\
+  !*** ./resources/js/app/auth/store/state.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  user: {
+    authenticated: false,
+    data: null
+  }
+});
 
 /***/ }),
 
@@ -54422,14 +54483,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _app_auth_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app/auth/store */ "./resources/js/app/auth/store/index.js");
-/* harmony import */ var _app_auth_store__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_app_auth_store__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    auth: _app_auth_store__WEBPACK_IMPORTED_MODULE_2___default.a
+    auth: _app_auth_store__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }));
 
