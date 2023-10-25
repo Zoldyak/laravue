@@ -56,7 +56,8 @@
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
-                            Hakim
+                            <!-- Hakim -->
+                            {{ user.data.name }}
                             <span class="caret"></span>
                         </a>
 

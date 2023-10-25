@@ -19,7 +19,7 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'Authentication is invalid.',
                 'errors' => [
-                    'root' => 'Could not sign in with those details.'
+                    'root' => 'Gagal login, Email/Password Salah'
                 ]
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
