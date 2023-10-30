@@ -4,7 +4,10 @@ export const register = ({dispatch},{payload,context}) => {
     // console.log(payload);
     return Axios.post("/api/auth/register",payload)
     .then((result)=>{
-        console.log(result.data);
+        dispatch("setTokens",result.data.meta.token).then(()=>{
+            // console.log(result.data.data);
+            dispatch("fetchUser",result.data.data)
+        })
 
     }).catch((err)=>{
         context.errors=  err.response.data.errors;
@@ -16,7 +19,8 @@ export const login = ({dispatch},{payload,context})=>{
     .post("/api/auth/login",payload)
     .then((result)=>{
         dispatch("setTokens",result.data.meta.token).then(()=>{
-            console.log(result.data.meta.token);
+            // console.log(result.data.data);
+            dispatch("fetchUser",result.data.data)
         })
         // dispatch("setToken", result.data.meta.token).then(() => {
         //     console.log(result.data.meta.token);
@@ -31,4 +35,8 @@ export const login = ({dispatch},{payload,context})=>{
 export const setTokens = ({commit},token)=>{
     commit("setToken",token);
     setHttpToken(token)
+}
+export const fetchUser = ({commit},user)=>{
+    commit("setAuthenticated",true);
+    commit("setUserData",user);
 }

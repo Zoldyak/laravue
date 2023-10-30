@@ -34,11 +34,11 @@
                           >
                       </li>
                       <li class="nav-item">
-                          <router-link
+                            <router-link
                               :to="{ name: 'register' }"
                               class="nav-link"
-                              >Register</router-link
-                          >
+                              >Register
+                            </router-link>
                       </li>
                   </ul>
 
