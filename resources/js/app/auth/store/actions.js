@@ -1,5 +1,6 @@
 import Axios from "axios"
 import { setHttpToken } from "../../../helpers";
+import { result } from "lodash";
 export const register = ({dispatch},{payload,context}) => {
     // console.log(payload);
     return Axios.post("/api/auth/register",payload)
@@ -37,6 +38,13 @@ export const setTokens = ({commit},token)=>{
     setHttpToken(token)
 }
 export const fetchUser = ({commit},user)=>{
-    commit("setAuthenticated",true);
-    commit("setUserData",user);
+    // commit("setAuthenticated",true);
+    // commit("setUserData",user);
+    Axios.get("/api/user")
+    .then(result => {
+        console.log(result.data)
+    })
+    .catch(err => {
+        console.error(err.response.data); 
+    })
 }

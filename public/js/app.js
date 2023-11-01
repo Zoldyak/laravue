@@ -54515,6 +54515,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers */ "./resources/js/helpers/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 var register = function register(_ref, _ref2) {
@@ -54554,8 +54557,13 @@ var setTokens = function setTokens(_ref5, token) {
 };
 var fetchUser = function fetchUser(_ref6, user) {
   var commit = _ref6.commit;
-  commit("setAuthenticated", true);
-  commit("setUserData", user);
+  // commit("setAuthenticated",true);
+  // commit("setUserData",user);
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user").then(function (result) {
+    console.log(result.data);
+  })["catch"](function (err) {
+    console.error(err.response.data);
+  });
 };
 
 /***/ }),
