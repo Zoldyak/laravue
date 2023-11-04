@@ -44,7 +44,7 @@
 
                   <ul class="navbar-nav ml-auto" v-if="user.authenticated">
                         <li class="nav-item">
-                        <router-link :to="{ name: 'timeline' }" class="nav-link">Timeline</router-link>
+                        <!-- <router-link :to="{ name: 'timeline' }" class="nav-link">Timeline</router-link> -->
                         </li>
                         <li class="nav-item dropdown">
                         <router-link

@@ -2492,14 +2492,7 @@ var render = function render() {
     staticClass: "navbar-nav ml-auto"
   }, [_c("li", {
     staticClass: "nav-item"
-  }, [_c("router-link", {
-    staticClass: "nav-link",
-    attrs: {
-      to: {
-        name: "timeline"
-      }
-    }
-  }, [_vm._v("Timeline")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" "), _c("li", {
     staticClass: "nav-item dropdown"
   }, [_c("router-link", {
     staticClass: "nav-link dropdown-toggle",
@@ -55133,10 +55126,8 @@ var beforeEach = function beforeEach(to, from, next) {
       return;
     }
     next();
-  })["catch"](function () {
+  })["catch"](function (err) {
     if (to.meta.authenticated) {
-      console.log(to.meta.authenticated);
-      // localStorage.setItem("intended", to.name);
       next({
         name: "login"
       });
