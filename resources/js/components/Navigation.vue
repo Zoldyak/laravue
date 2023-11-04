@@ -47,10 +47,10 @@
                         <!-- <router-link :to="{ name: 'timeline' }" class="nav-link">Timeline</router-link> -->
                         </li>
                         <li class="nav-item dropdown">
-                        <router-link
+                        <a
                             id="navbarDropdown"
                             class="nav-link dropdown-toggle"
-                            :to="{name:'profile'}"
+                            
                             role="button"
                             data-toggle="dropdown"
                             aria-haspopup="true"
@@ -59,9 +59,12 @@
                             <!-- Hakim -->
                             {{ user.data.name }}
                             <span class="caret"></span>
-                        </router-link>
-
+                        </a>
+                        
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <router-link class="dropdown-item" :to="{name:'profile'}">
+                            Profile
+                            </router-link>
                             <a class="dropdown-item" href="#" @click.prevent="signout">Logout</a>
                         </div>
                         </li>
@@ -73,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -81,5 +84,16 @@ export default {
       user: "auth/user",
     }),
   },
+  methods:{
+    ...mapActions({
+        logout:"auth/logout"
+    }
+    ),
+    signout(){
+        this.logout().then((result) => {
+            this.$router.replace({name:"home"})
+        });
+    }
+  }
 };
 </script>
