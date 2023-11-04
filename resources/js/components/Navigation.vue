@@ -47,10 +47,10 @@
                         <router-link :to="{ name: 'timeline' }" class="nav-link">Timeline</router-link>
                         </li>
                         <li class="nav-item dropdown">
-                        <a
+                        <router-link
                             id="navbarDropdown"
                             class="nav-link dropdown-toggle"
-                            href="#"
+                            :to="{name:'profile'}"
                             role="button"
                             data-toggle="dropdown"
                             aria-haspopup="true"
@@ -59,7 +59,7 @@
                             <!-- Hakim -->
                             {{ user.data.name }}
                             <span class="caret"></span>
-                        </a>
+                        </router-link>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#" @click.prevent="signout">Logout</a>
