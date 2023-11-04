@@ -9,6 +9,7 @@ const beforeEach = (to, from, next)=> {
         next()
     }).catch((err) => {
         if (to.meta.authenticated) {
+            localStorage.setItem("intended", to.name);
             next({name:"login"})
             return;
         }
