@@ -8,7 +8,14 @@ import store from "./store";
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+store.dispatch("auth/setToken").then(() => {
+    store.dispatch("auth/fetchUser").catch(() => {
+        store.dispatch("auth/removeToken");
+        router.replace({ name: "login" });
+    })
+}).catch(() => {
+    store.dispatch("auth/removeToken");
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

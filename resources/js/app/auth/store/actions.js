@@ -1,11 +1,12 @@
 import Axios from "axios"
 import { setHttpToken } from "../../../helpers";
 import { result } from "lodash";
+import { isEmpty } from 'lodash';
 export const register = ({dispatch},{payload,context}) => {
     // console.log(payload);
     return Axios.post("/api/auth/register",payload)
     .then((result)=>{
-        dispatch("setTokens",result.data.meta.token).then(()=>{
+        dispatch("setToken",result.data.meta.token).then(()=>{
             // console.log(result.data.data);
             dispatch("fetchUser",result.data.data)
         })
@@ -19,7 +20,7 @@ export const login = ({dispatch},{payload,context})=>{
     return Axios
     .post("/api/auth/login",payload)
     .then((result)=>{
-        dispatch("setTokens",result.data.meta.token).then(()=>{
+        dispatch("setToken",result.data.meta.token).then(()=>{
             // console.log(result.data.data);
             dispatch("fetchUser",result.data.data)
         })
@@ -33,18 +34,40 @@ export const login = ({dispatch},{payload,context})=>{
     })
     
 }
-export const setTokens = ({commit},token)=>{
-    commit("setToken",token);
-    setHttpToken(token)
+export const setToken = ({commit,dispatch},token)=>{
+    if (isEmpty(token)) {
+        return dispatch("checkTokenExists")
+        .then((token) => {
+            setHttpToken(token);
+        });
+    }
+
+    commit("setToken", token);
+    setHttpToken(token);
 }
-export const fetchUser = ({commit},user)=>{
-    // commit("setAuthenticated",true);
-    // commit("setUserData",user);
-    Axios.get("/api/user")
-    .then(result => {
-        console.log(result.data)
-    })
-    .catch(err => {
-        console.error(err.response.data); 
-    })
+
+export const removeToken = ({ commit }) => {
+    commit("setAuthenticated", false);
+    commit("setUserData", null);
+    commit("setToken", null);
+    setHttpToken(null);
+}
+
+export const fetchUser = ({commit}) => {
+    axios.get("/api/user")
+        .then((result) => {
+            commit("setAuthenticated", true);
+            commit("setUserData", result.data);
+        }).catch((err) => {
+            console.log(err.response.data);
+        });
+}
+export const checkTokenExists = () => {
+    const token = localStorage.getItem('access_token');
+
+    if (isEmpty(token)) {
+        return Promise.reject("NO_STORAGE_FOUND");
+    }
+
+    return Promise.resolve(token);
 }

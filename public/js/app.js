@@ -54283,7 +54283,16 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-
+_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("auth/setToken").then(function () {
+  _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("auth/fetchUser")["catch"](function () {
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("auth/removeToken");
+    _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace({
+      name: "login"
+    });
+  });
+})["catch"](function () {
+  _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("auth/removeToken");
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -54503,20 +54512,23 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./resources/js/app/auth/store/actions.js ***!
   \************************************************/
-/*! exports provided: register, login, setTokens, fetchUser */
+/*! exports provided: register, login, setToken, removeToken, fetchUser, checkTokenExists */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "register", function() { return register; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTokens", function() { return setTokens; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeToken", function() { return removeToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkTokenExists", function() { return checkTokenExists; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers */ "./resources/js/helpers/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
@@ -54526,7 +54538,7 @@ var register = function register(_ref, _ref2) {
     context = _ref2.context;
   // console.log(payload);
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/auth/register", payload).then(function (result) {
-    dispatch("setTokens", result.data.meta.token).then(function () {
+    dispatch("setToken", result.data.meta.token).then(function () {
       // console.log(result.data.data);
       dispatch("fetchUser", result.data.data);
     });
@@ -54539,7 +54551,7 @@ var login = function login(_ref3, _ref4) {
   var payload = _ref4.payload,
     context = _ref4.context;
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/auth/login", payload).then(function (result) {
-    dispatch("setTokens", result.data.meta.token).then(function () {
+    dispatch("setToken", result.data.meta.token).then(function () {
       // console.log(result.data.data);
       dispatch("fetchUser", result.data.data);
     });
@@ -54550,20 +54562,39 @@ var login = function login(_ref3, _ref4) {
     context.errors = err.response.data.errors;
   });
 };
-var setTokens = function setTokens(_ref5, token) {
-  var commit = _ref5.commit;
+var setToken = function setToken(_ref5, token) {
+  var commit = _ref5.commit,
+    dispatch = _ref5.dispatch;
+  if (Object(lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"])(token)) {
+    return dispatch("checkTokenExists").then(function (token) {
+      Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["setHttpToken"])(token);
+    });
+  }
   commit("setToken", token);
   Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["setHttpToken"])(token);
 };
-var fetchUser = function fetchUser(_ref6, user) {
+var removeToken = function removeToken(_ref6) {
   var commit = _ref6.commit;
-  // commit("setAuthenticated",true);
-  // commit("setUserData",user);
-  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user").then(function (result) {
-    console.log(result.data);
+  commit("setAuthenticated", false);
+  commit("setUserData", null);
+  commit("setToken", null);
+  Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["setHttpToken"])(null);
+};
+var fetchUser = function fetchUser(_ref7) {
+  var commit = _ref7.commit;
+  axios.get("/api/user").then(function (result) {
+    commit("setAuthenticated", true);
+    commit("setUserData", result.data);
   })["catch"](function (err) {
-    console.error(err.response.data);
+    console.log(err.response.data);
   });
+};
+var checkTokenExists = function checkTokenExists() {
+  var token = localStorage.getItem('access_token');
+  if (Object(lodash__WEBPACK_IMPORTED_MODULE_2__["isEmpty"])(token)) {
+    return Promise.reject("NO_STORAGE_FOUND");
+  }
+  return Promise.resolve(token);
 };
 
 /***/ }),
@@ -54956,9 +54987,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var setHttpToken = function setHttpToken(token) {
   if (Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(token)) {
-    window.axios.defaults.headers.common['Autorization'] = null;
+    window.axios.defaults.headers.common['Authorization'] = null;
   } else {
-    window.axios.defaults.headers.common['Autorization'] = "Bearer " + token;
+    window.axios.defaults.headers.common['Authorization'] = "Bearer " + token;
   }
 };
 
